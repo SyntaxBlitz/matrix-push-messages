@@ -1,4 +1,5 @@
-require('dotenv').config();
+#!/usr/local/bin/node
+require('dotenv').config({ path: `${__dirname}/.env` });
 const { MatrixClient } = require('matrix-bot-sdk');
 
 const run = async () => {
@@ -10,7 +11,7 @@ const run = async () => {
   await client.start();
 
   const [ room ] = await client.getJoinedRooms();
-  await client.sendHtmlText(room, process.argv[2]);
+  await client.sendHtmlText(room, process.argv.slice(2).join(' '));
 
   process.exit(0);
 };
